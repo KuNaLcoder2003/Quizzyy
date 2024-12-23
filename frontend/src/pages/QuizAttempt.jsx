@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Question from '../components/Question';
 import Timer from '../components/Timer';
 import toast from 'react-hot-toast';
