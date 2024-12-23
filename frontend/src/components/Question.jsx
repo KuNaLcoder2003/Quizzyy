@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Question = ({question , question_number , options , collectResponses}) => {
+const Question = ({question , question_number , options , collectResponses , change}) => {
     console.log('hello :',question);
     console.log(options)
     const [userResponse , setUserResponse] = useState(0);
@@ -11,8 +11,15 @@ const Question = ({question , question_number , options , collectResponses}) => 
         4 : 'D'
     }
     function handleSubmit(){
+
+        if(userResponse > 0) {
+            collectResponses(userResponse);
+        }
+        else {
+            collectResponses(0);
+        }
         setUserResponse(0);
-        collectResponses(userResponse);
+
     }
   return (
     <div className='flex flex-col gap-4'>
@@ -38,7 +45,8 @@ const Question = ({question , question_number , options , collectResponses}) => 
                     )
                 })
             }
-            <div onClick={handleSubmit} className='self-end cursor-pointer bg-green-600 w-[130px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>Submit</div>
+            <div onClick={()=>change(handleSubmit)} className='self-end cursor-pointer bg-green-600 w-[130px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>Submit</div>
+            
         </div>
       
     </div>
