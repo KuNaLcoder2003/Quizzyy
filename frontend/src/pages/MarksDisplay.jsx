@@ -4,6 +4,8 @@ import Marks from '../components/Marks';
 
 const MarksDisplay = () => {
     const [marks , setMarks] = useState(null);
+    const [quizName , setQuizName] = useState("")
+    const [total , setTotal] = useState(0)
     const params = useLocation();
     const id =  params.pathname.split('/').at(-1);
 
@@ -25,6 +27,8 @@ const MarksDisplay = () => {
                 const data = await response.json()
                 if(data.success){
                     setMarks(data.marks);
+                    setQuizName(data.quiz_name)
+                    setTotal(data.no_of_questions)
                 }
                 else{
                     alert(data.message);
@@ -36,7 +40,7 @@ const MarksDisplay = () => {
         }
     } , [])
   return (
-    <Marks quizId={id} marks={marks}/>
+    <Marks quizId={id} marks={marks}  quiz_name={quizName} total={total} />
   )
 }
 
