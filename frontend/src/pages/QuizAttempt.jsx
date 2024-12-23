@@ -124,7 +124,7 @@ const QuizAttempt = () => {
             }} className='m-auto relative top-[20px] left-[130px] cursor-pointer bg-green-600 w-[130px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>Next</div>
 
             {
-                index >= questions.length - 1 ? <div onClick={quizSubmitHandler} className='m-auto absolute top-[7rem] left-[78rem] cursor-pointer bg-green-600 w-[130px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>Submit Quiz</div> : null
+                index >= questions.length - 1 ? <div onClick={quizSubmitHandler} className='m-auto absolute top-[7rem] left-[78rem] cursor-pointer bg-green-600 w-[130px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px] sm:top-[33rem] sm:left-[8rem]'>Submit Quiz</div> : null
             }
         </div>
     )
