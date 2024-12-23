@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Input from '../components/Input'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 
 const LoginPage = ({setIsLoggedIn}) => {
@@ -30,9 +31,11 @@ const LoginPage = ({setIsLoggedIn}) => {
                     localStorage.setItem('token' , `Bearer ${data.token}`);
                     setIsLoggedIn(true)
                     console.log(data.message)
+                    toast.success(data.message)
                     navigate('/dashboard')
                 }
                 else {
+                    toast.error(data.message)
                     setIsLoggedIn(false)
                 }
             })
