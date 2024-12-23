@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+
 
 const Input = ({placeHolder , onChange , value , className}) => {
   return (
