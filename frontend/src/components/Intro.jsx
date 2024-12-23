@@ -26,7 +26,7 @@ const Intro = ({ loggedIn , user }) => {
             <>
               <h1 className='text-6xl font-bold'>Learn 10x <span className='text-green-600'>Faster</span></h1>
               <p className='text-xl font-semibold'>Unlock your potential with personalized quizzes</p>
-              <div className='cursor-pointer bg-green-600 w-[200px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>
+              <div onClick={()=>navigate('/login')} className='cursor-pointer bg-green-600 w-[200px] h-[20px] p-[2rem] text-white flex justify-center items-center rounded-[15px]'>
                 Get Started Now
               </div>
             </>
