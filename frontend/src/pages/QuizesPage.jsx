@@ -5,6 +5,7 @@ const QuizesPage = () => {
     const [quizes , setQuizes] = useState([]);
     localStorage.removeItem('questions');
     localStorage.removeItem('index');
+    localStorage.removeItem('user_responses');
     useEffect(()=> {
         const token = localStorage.getItem('token');
         fetch('http://localhost:3000/api/v1/quiz/' , {
