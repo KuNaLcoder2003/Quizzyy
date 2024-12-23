@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import Question from '../components/Question';
 import Timer from '../components/Timer';
+import toast from 'react-hot-toast';
 // import { options } from '../../../backend/routes/quiz';
 
 const QuizAttempt = () => {
@@ -17,13 +18,35 @@ const QuizAttempt = () => {
     const id = params.pathname.split('/').at(-1);
 
 
+    function changeQuestion(callback){
+        callback();
+        if(index >= questions.length-1  ){
+            toast.error('no more question')
+        }
+        else{
+            setIndex(index+1);
+            localStorage.setItem('index' , JSON.stringify(index+1))
+        }
+    }
+
+
     function collectResponses(respone) {
+        const arr = localStorage.getItem('user_responses')
         let obj = {
             question: index + 1,
             respone: respone
         }
-        console.log(obj)
-        setUserResponses([...userResponses, obj]);
+        if(!arr){
+            let arr = [obj]
+            localStorage.setItem('user_responses' , JSON.stringify(arr))
+            setUserResponses(arr);
+        }
+        else{
+            let arr = JSON.parse(localStorage.getItem('user_responses'))
+            arr.push(obj)
+            localStorage.setItem('user_responses' , JSON.stringify(arr))
+            setUserResponses(arr)
+        }
     }
     useEffect(() => {
 
@@ -70,6 +93,7 @@ const QuizAttempt = () => {
     function quizSubmitHandler() {
         const id = params.pathname.split('/').at(-1)
         const token = localStorage.getItem('token')
+        console.log(userResponses);
         try {
             fetch('http://localhost:3000/api/v1/quiz/quizAttempt/' + id, {
                 method: 'POST',
@@ -83,10 +107,13 @@ const QuizAttempt = () => {
             }).then(async (response) => {
                 const data = await response.json();
                 if (data.success) {
-                    navigate(`/marks/${id}`)
+                    navigate(`/marks/${id}`);
+                    toast.success(data.message);
                     localStorage.removeItem('questions');
                     localStorage.removeItem('index');
+                    localStorage.removeItem('user_responses');
                 }
+
                 else {
                     alert(data.message);
                 }
@@ -112,7 +139,7 @@ const QuizAttempt = () => {
             </div>
 
             {
-                questions.length > 0 ? <Question question={questions[index].question} options={questions[index].options} question_number={index + 1} collectResponses={collectResponses} /> : <div>Loading</div>
+                questions.length > 0 ? <Question question={questions[index].question} change={changeQuestion} options={questions[index].options} question_number={index + 1} collectResponses={collectResponses} /> : <div>Loading</div>
             }
             <div onClick={() => {
                 if (index >= questions.length - 1) {
