@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Marks = ({ marks, quiz_name , total ,quizId }) => {
